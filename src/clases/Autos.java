@@ -31,10 +31,9 @@ public class Autos implements java.io.Serializable{
         this.tipomodelo = tipomodelo;
     }
     
- public Autos(String Modelo, String Marca, String tipomodelo, String tipomarca, String precio) {
+ public Autos(String Modelo, String Marca, String tipomarca, String precio) {
         this.Modelo = Modelo;
         this.Marca = Marca;
-        this.tipomodelo = tipomodelo;
         this.tipomarca = tipomarca;
         this.precio = precio;
     }

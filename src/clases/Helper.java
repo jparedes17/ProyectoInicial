@@ -78,11 +78,10 @@ public class Helper {
         nf = auto.size();
         tm.setRowCount(nf);
         for (int i = 0; i < nf; i++) {
-           tabla.setValueAt(i+1, i, 0);
-           tabla.setValueAt(auto.get(i).getMarca(), i, 3);
-           tabla.setValueAt(auto.get(i).getModelo(), i, 4);
+           tabla.setValueAt(auto.get(i).getMarca(), i, 0);
+           tabla.setValueAt(auto.get(i).getModelo(), i, 1);
            tabla.setValueAt(auto.get(i).getTipomarca(), i, 2);
-           tabla.setValueAt(auto.get(i).getTipomodelo(), i, 1);
+           tabla.setValueAt(auto.get(i).getPrecio(), i, 3);
         }
     }
     

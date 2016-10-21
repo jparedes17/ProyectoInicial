@@ -116,13 +116,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnSalirActionPerformed
 
     private void mnAgregarNuevosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAgregarNuevosActionPerformed
-         AgregarAutosNuevos a = new AgregarAutosNuevos(this, true);
+         AgregarCarrosNuevos a = new AgregarCarrosNuevos(this, true);
          a.setVisible(true);
     }//GEN-LAST:event_mnAgregarNuevosActionPerformed
 
     private void mnAutosUsadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAutosUsadosActionPerformed
-        jj a = new jj(this, true);
-        a.setVisible(true);
+        
     }//GEN-LAST:event_mnAutosUsadosActionPerformed
 
     /**
