@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import interfaz.AutosNuevos.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,11 +58,12 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
         txtTipoMarca = new javax.swing.JTextField();
-        txtMarca = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        cmbMarca = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
         cmbGuardar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        cmbLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,6 +75,12 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Precio:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -84,9 +92,19 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
                 txtModeloActionPerformed(evt);
             }
         });
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtModeloKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 50, -1));
+
+        txtTipoMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTipoMarcaKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtTipoMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 80, -1));
-        jPanel2.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 80, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Marca:");
@@ -96,7 +114,13 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
         jLabel2.setText("Tipo de Marca:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 270, 210));
+        cmbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chevrolet", "Ford", "Renault", "Nissan", "Mazda", "Audi", "Ferrari", "Lamborghini", " " }));
+        jPanel2.add(cmbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 110, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 280, 230));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbGuardar.setText("Guardar");
         cmbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,20 +128,27 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
                 cmbGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, -1, -1));
+        jPanel3.add(cmbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jButton6.setText("Limpiar");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 70, -1));
+        cmbLimpiar.setText("Limpiar");
+        cmbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbLimpiarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmbLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 110, 120));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
         );
 
         pack();
@@ -128,10 +159,25 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
     }//GEN-LAST:event_txtModeloActionPerformed
 
     private void cmbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGuardarActionPerformed
-       String tipoAutomovil, marca, modelo, tipoMarca, precio;
+        try{
+        String tipoAutomovil, marca, modelo, tipoMarca, precio;
+        if(txtPrecio.getText().trim().isEmpty())
+        {
+            Helper.mensaje(this, "Introduzca el precio del vehiculo", 3);
+            txtPrecio.requestFocusInWindow();
+        }
+        else if (txtModelo.getText().trim().isEmpty())
+        {
+           Helper.mensaje(this, "Introduzca el modelo del vehiculo", 3);
+        }
+        else if (txtTipoMarca.getText().trim().isEmpty())
+        {
+            Helper.mensaje(this, "Introduzca el tipo de marca del vehiculo", 3);
+        }
+        else {
+       
         
-        
-        marca = txtMarca.getText();
+        marca = cmbMarca.getSelectedItem().toString();
         modelo = txtModelo.getText();
         tipoMarca = txtTipoMarca.getText();
         precio = txtPrecio.getText();
@@ -143,12 +189,50 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
                 Logger.getLogger(AgregarCarrosNuevos.class.getName()).log(Level.SEVERE, null, ex);
             }
         
-        txtMarca.setText("");
+        cmbMarca.setSelectedIndex(0);
         txtModelo.setText("");
         txtTipoMarca.setText("");
         txtPrecio.setText("");
-        txtMarca.requestFocusInWindow();
+        txtTipoMarca.requestFocusInWindow();
+        }
+            }catch (NumberFormatException ex)
+            {
+                Helper.mensaje(this, "No puede Ingresar Signos", 3);
+            }
+    
     }//GEN-LAST:event_cmbGuardarActionPerformed
+
+    private void cmbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLimpiarActionPerformed
+        txtModelo.setText("");
+        txtPrecio.setText("");
+        txtTipoMarca.setText("");
+        cmbMarca.setSelectedIndex(0);
+        txtTipoMarca.requestFocusInWindow();
+    }//GEN-LAST:event_cmbLimpiarActionPerformed
+
+    private void txtTipoMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoMarcaKeyTyped
+        char c=evt.getKeyChar(); 
+          if(Character.isDigit(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+          } 
+    }//GEN-LAST:event_txtTipoMarcaKeyTyped
+
+    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
+        char c=evt.getKeyChar(); 
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+          } 
+    }//GEN-LAST:event_txtModeloKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        char c=evt.getKeyChar(); 
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+          } 
+    }//GEN-LAST:event_txtPrecioKeyTyped
 
     /**
      * @param args the command line arguments
@@ -194,18 +278,15 @@ public class AgregarCarrosNuevos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmbGuardar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton cmbLimpiar;
+    private javax.swing.JComboBox<String> cmbMarca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtMarca;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtTipoMarca;

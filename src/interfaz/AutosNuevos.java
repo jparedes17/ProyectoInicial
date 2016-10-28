@@ -8,10 +8,14 @@ package interfaz;
 
 import clases.Autos;
 import clases.Helper;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +32,6 @@ public class AutosNuevos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
        ruta = "src/datos/autos.txt";
-        Helper.llenarTabla(tblAutosNuevos, ruta);
     }
 
     /**
@@ -45,8 +48,9 @@ public class AutosNuevos extends javax.swing.JDialog {
         tblAutosNuevos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        cmbMarca = new javax.swing.JComboBox();
+        cmbComprar = new javax.swing.JButton();
+        cmbListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -69,6 +73,11 @@ public class AutosNuevos extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblAutosNuevos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAutosNuevosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAutosNuevos);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 384, 259));
@@ -80,18 +89,71 @@ public class AutosNuevos extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chevrolet", "Ford", "Renault" }));
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        cmbMarca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chevrolet", "Ford", "Renault", "Nissan", "Mazda", "Audi", "Ferrari", "Lamborghini", " " }));
+        cmbMarca.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbMarcaItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(cmbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jButton1.setText("Comprar");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        cmbComprar.setText("Comprar");
+        cmbComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbComprarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmbComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        cmbListar.setText("Listar");
+        cmbListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbListarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 70, 20));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 110, 130));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 590, 370));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 600, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbListarActionPerformed
+        String marca =cmbMarca.getSelectedItem().toString();
+        Helper.listadoPorMarca(tblAutosNuevos, ruta, marca);
+    }//GEN-LAST:event_cmbListarActionPerformed
+
+    private void cmbMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbMarcaItemStateChanged
+        String marca =cmbMarca.getSelectedItem().toString();
+        Helper.listadoPorMarca(tblAutosNuevos, ruta, marca);
+    }//GEN-LAST:event_cmbMarcaItemStateChanged
+
+    private void cmbComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbComprarActionPerformed
+          int op, i;
+          op = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea comprar este coche?", "Eliminar", JOptionPane.YES_NO_OPTION);
+          
+          ArrayList<Autos> auto = Helper.traerDatos(ruta);
+          if (op == JOptionPane.YES_OPTION){
+            CompradoresAutos a = new CompradoresAutos(null,true);
+            a.setVisible(true);
+          }
+    }//GEN-LAST:event_cmbComprarActionPerformed
+
+    private void tblAutosNuevosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAutosNuevosMouseClicked
+        int i;
+        Autos p;
+        ArrayList<Autos> autos = Helper.traerDatos(ruta);
+        i = tblAutosNuevos.getSelectedRow();
+        
+        p = auto.get(i);
+        
+        p.getMarca();
+        p.getModelo();
+        
+        
+    }//GEN-LAST:event_tblAutosNuevosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -136,8 +198,9 @@ public class AutosNuevos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton cmbComprar;
+    private javax.swing.JButton cmbListar;
+    private javax.swing.JComboBox cmbMarca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

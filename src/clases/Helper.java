@@ -10,8 +10,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -79,8 +82,72 @@ public class Helper {
         tm.setRowCount(nf);
         for (int i = 0; i < nf; i++) {
            tabla.setValueAt(auto.get(i).getMarca(), i, 0);
-           tabla.setValueAt(auto.get(i).getModelo(), i, 1);
-           tabla.setValueAt(auto.get(i).getTipomarca(), i, 2);
+           tabla.setValueAt(auto.get(i).getTipomarca(), i, 1);
+           tabla.setValueAt(auto.get(i).getModelo(), i, 2);
+           tabla.setValueAt(auto.get(i).getPrecio(), i, 3);
+        }
+    }
+    
+     public static void llenarTabla2(JTable tabla, String ruta){
+        DefaultTableModel tm;
+        int nf;
+        ArrayList <Autos> auto = traerDatos(ruta);
+        tm = (DefaultTableModel)tabla.getModel();
+        limpiadoTabla(tabla);
+        nf = auto.size();
+        tm.setRowCount(nf);
+        for (int i = 0; i < nf; i++) {
+           tabla.setValueAt(auto.get(i).getMarca(), i, 3);
+           tabla.setValueAt(auto.get(i).getModelo(), i, 4);
+        }
+     }
+    
+     public static void llenarTabla4 (JTable tabla, String ruta){
+        DefaultTableModel tm;
+        int nf;
+        ArrayList <Autos> auto = traerDatos(ruta);
+        tm = (DefaultTableModel)tabla.getModel();
+        limpiadoTabla(tabla);
+        nf = auto.size();
+        tm.setRowCount(nf);
+        for (int i = 0; i < nf; i++) {
+           tabla.setValueAt(auto.get(i).getNombre(), i, 0);
+           tabla.setValueAt(auto.get(i).getApellido(), i, 1);
+           tabla.setValueAt(auto.get(i).getCedula(), i, 2);
+           tabla.setValueAt(auto.get(i).getMarca(), i, 3);
+           tabla.setValueAt(auto.get(i).getFecha(), i, 4);
+           tabla.setValueAt(auto.get(i).getHorasalquiladas(), i, 5);
+           tabla.setValueAt(auto.get(i).getHoraspagar(), i, 6);
+        }
+     }
+     public static void llenarTabla3(JTable tabla, String ruta){
+        DefaultTableModel tm;
+        int nf;
+        ArrayList <Autos> auto = traerDatos(ruta);
+        tm = (DefaultTableModel)tabla.getModel();
+        limpiadoTabla(tabla);
+        nf = auto.size();
+        tm.setRowCount(nf);
+        for (int i = 0; i < nf; i++) {
+           tabla.setValueAt(auto.get(i).getNombre(), i, 0);
+           tabla.setValueAt(auto.get(i).getApellido(), i, 1);
+           tabla.setValueAt(auto.get(i).getCedula(), i, 2);
+           tabla.setValueAt(auto.get(i).getMarca(), i, 3);
+           tabla.setValueAt(auto.get(i).getModelo(), i, 4);
+        }
+     }
+     
+     public static void llenarTabla(JTable tabla, ArrayList <Autos> auto){
+        DefaultTableModel tm;
+        int nf;
+        tm = (DefaultTableModel)tabla.getModel();
+        limpiadoTabla(tabla);
+        nf = auto.size();
+        tm.setRowCount(nf);
+        for (int i = 0; i < nf; i++) {
+           tabla.setValueAt(auto.get(i).getMarca(), i, 0);
+           tabla.setValueAt(auto.get(i).getTipomarca(), i, 1);
+           tabla.setValueAt(auto.get(i).getModelo(), i, 2);
            tabla.setValueAt(auto.get(i).getPrecio(), i, 3);
         }
     }
@@ -88,14 +155,14 @@ public class Helper {
     public static ArrayList traerDatos(String ruta){
         FileInputStream archivo;
         ObjectInputStream entrada;
-        ArrayList personas = new ArrayList();
+        ArrayList auto = new ArrayList();
         Object p;
         
         try {
             archivo = new FileInputStream(ruta);
             entrada = new ObjectInputStream(archivo);
             while((p=entrada.readObject())!=null){
-                personas.add(p);
+                auto.add(p);
             }
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -104,7 +171,7 @@ public class Helper {
         } catch (ClassNotFoundException ex) {
              System.out.println(ex.getMessage());
         }
-           return personas;
+           return auto;
     } 
     
     public static void volcado(ObjectOutputStream salida,ArrayList personas ){
@@ -117,4 +184,16 @@ public class Helper {
             
         }
     }
+    
+    public static void listadoPorMarca(JTable tabla, String ruta, String marca ){
+      ArrayList <Autos> auto = traerDatos(ruta);
+      ArrayList <Autos> marcasFiltradas = new ArrayList();
+        for (int i = 0; i < auto.size(); i++) {
+            if (auto.get(i).getMarca().equals(marca)){
+                marcasFiltradas.add(auto.get(i));
+            }
+        }
+        llenarTabla(tabla, marcasFiltradas);
+    }
 }
+
