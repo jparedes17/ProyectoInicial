@@ -141,27 +141,27 @@ public class AlquilerAutos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbAlquilar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar1ActionPerformed
-         DatosAlquilados a = new DatosAlquilados(null,true);
+         DatosAlquilados a = new DatosAlquilados(null,true,tblTablaAlquilar);
             a.setVisible(true);
     }//GEN-LAST:event_cmbAlquilar1ActionPerformed
 
     private void cmbAlquilar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar2ActionPerformed
-        DatosAlquilados a = new DatosAlquilados(null,true);
+        DatosAlquilados a = new DatosAlquilados(null,true,tblTablaAlquilar);
             a.setVisible(true);
     }//GEN-LAST:event_cmbAlquilar2ActionPerformed
 
     private void cmbAlquilar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar3ActionPerformed
-        DatosAlquilados a = new DatosAlquilados(null,true);
+        DatosAlquilados a = new DatosAlquilados(null,true,tblTablaAlquilar);
             a.setVisible(true);
     }//GEN-LAST:event_cmbAlquilar3ActionPerformed
 
     private void cmbAlquilar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar4ActionPerformed
-        DatosAlquilados a = new DatosAlquilados(null,true);
+        DatosAlquilados a = new DatosAlquilados(null,true,tblTablaAlquilar);
             a.setVisible(true);
     }//GEN-LAST:event_cmbAlquilar4ActionPerformed
 
     private void cmbAlquilar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar5ActionPerformed
-        DatosAlquilados a = new DatosAlquilados(null,true);
+        DatosAlquilados a = new DatosAlquilados(null,true,tblTablaAlquilar);
         a.setVisible(true);
     }//GEN-LAST:event_cmbAlquilar5ActionPerformed
 

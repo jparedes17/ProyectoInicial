@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
@@ -26,9 +27,11 @@ public class DatosAlquilados extends javax.swing.JDialog {
         String ruta;
         ObjectOutputStream salida;
         ArrayList<Autos> auto;
-    public DatosAlquilados(java.awt.Frame parent, boolean modal) {
+        static JTable t;
+    public DatosAlquilados(java.awt.Frame parent, boolean modal, JTable tabla) {
         super(parent, modal);
         initComponents();
+        t=tabla;
         ruta = "src/datos/autosAlquilados.txt";
         try {
             auto = Helper.traerDatos(ruta);
@@ -136,7 +139,7 @@ public class DatosAlquilados extends javax.swing.JDialog {
             } catch (IOException ex) {
                 Logger.getLogger(AgregarCarrosNuevos.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        Helper.llenarTabla4(t, ruta);
          txtNombre.setText("");
          txtApellido.setText("");
          txtCedula.setText("");
@@ -176,7 +179,7 @@ public class DatosAlquilados extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DatosAlquilados dialog = new DatosAlquilados(new javax.swing.JFrame(), true);
+                DatosAlquilados dialog = new DatosAlquilados(new javax.swing.JFrame(), true,t);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
