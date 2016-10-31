@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -194,6 +195,63 @@ public class Helper {
             }
         }
         llenarTabla(tabla, marcasFiltradas);
+    }
+    
+    public static boolean buscarAutoCedula(String cedula, String ruta) {
+        ArrayList<Autos> auto = traerDatos(ruta);
+        for (int i = 0; i < auto.size(); i++) {
+            if (auto.get(i).getCedula().equals(cedula)) {
+                return true;
+            }
+        }
+        return false;
+   }
+    
+    public static Autos traerPersonaCedula(String cedula, String ruta){
+         ArrayList<Autos> auto = traerDatos(ruta);
+         for (int i = 0; i < auto.size(); i++) {
+            if (auto.get(i).getCedula().equals(cedula)) {
+                return auto.get(i);
+            }
+            
+        }
+         return null;
+    }
+    
+    public static ArrayList<Autos> modificarAuto(String ruta, String cedula,String nombre, String apellido){
+         ArrayList<Autos> auto = traerDatos(ruta);
+         for (int i = 0; i < auto.size(); i++) {
+            if(auto.get(i).getCedula().equals(cedula)){
+                auto.get(i).setNombre(nombre);
+                auto.get(i).setApellido(apellido);
+                return auto;
+            }
+         
+        }
+         return null;
+    } 
+    
+    public static ArrayList<Autos> modificarAuto(String ruta, String cedula,String nombre, String apellido, String automovil, String fecha, int horasalquilar, int precioalquilar){
+         ArrayList<Autos> auto = traerDatos(ruta);
+         for (int i = 0; i < auto.size(); i++) {
+            if(auto.get(i).getCedula().equals(cedula)){
+                auto.get(i).setNombre(nombre);
+                auto.get(i).setApellido(apellido);
+                auto.get(i).setMarca(automovil);
+                auto.get(i).setFecha(fecha);
+                auto.get(i).setHorasalquiladas(horasalquilar);
+                auto.get(i).setPrecioalquilada(precioalquilar);
+                
+
+                return auto;
+            }
+         
+        }
+         return null;
+    } 
+
+    public static ArrayList<Autos> modificarAuto(String ruta, String cedula, String nombre, String apellido, String automovil, Date fecha, int horasalquilar, int precioalquilar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

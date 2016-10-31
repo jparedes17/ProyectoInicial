@@ -7,6 +7,7 @@ package clases;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 
 /**
  *
@@ -62,6 +63,10 @@ public class Autos implements java.io.Serializable{
         this.horasalquiladas = horasalquiladas;
         this.precioalquilada = precioalquilada;
   }
+
+    public Autos(String nombre, String apellido, String cedula, String automovil, Date fecha, int horasalquilar, int precioalquilar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public int getPrecioalquilada() {
         return precioalquilada;

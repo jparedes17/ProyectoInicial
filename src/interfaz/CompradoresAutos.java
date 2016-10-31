@@ -26,6 +26,7 @@ public class CompradoresAutos extends javax.swing.JDialog {
         String ruta;
         ObjectOutputStream salida;
         ArrayList<Autos> auto;
+        int aux = 0;
     public CompradoresAutos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -57,7 +58,11 @@ public class CompradoresAutos extends javax.swing.JDialog {
         txtApellido = new javax.swing.JTextField();
         txtCedula = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        cmdBuscar = new javax.swing.JButton();
         cmbGuardar = new javax.swing.JButton();
+        cmdLimpiar = new javax.swing.JButton();
+        cmdSalir = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -68,22 +73,33 @@ public class CompradoresAutos extends javax.swing.JDialog {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Nombre:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel4.setText("Apellido:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel5.setText("Cedula:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 100, -1));
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 100, -1));
-        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 100, -1));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 100, -1));
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 100, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 290, 170));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 290, 170));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Compradores");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cmdBuscar.setText("Buscar");
+        cmdBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBuscarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmdBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 70, -1));
 
         cmbGuardar.setText("Guardar");
         cmbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +107,20 @@ public class CompradoresAutos extends javax.swing.JDialog {
                 cmbGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(cmbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
+        jPanel2.add(cmbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+
+        cmdLimpiar.setText("Limpiar");
+        cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLimpiarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmdLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 70, -1));
+
+        cmdSalir.setText("Salir");
+        jPanel2.add(cmdSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 70, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 120, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,14 +147,29 @@ public class CompradoresAutos extends javax.swing.JDialog {
         nombre = txtNombre.getText();
         apellido = txtApellido.getText();
         cedula = txtCedula.getText();
+        ArrayList<Autos> autoModificado;
         
-        Autos a = new Autos (nombre, apellido, cedula);
-        try {
+       
+            if (aux == 1){
+                 Autos a = new Autos (nombre, apellido, cedula);
+
+            try {
                 a.guardar(salida);
             } catch (IOException ex) {
-                Logger.getLogger(AgregarCarrosNuevos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CompradoresAutos.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+            }
+            else {
+                autoModificado = Helper.modificarAuto(ruta, cedula, nombre, apellido);
+            try {
+                salida = new ObjectOutputStream(new FileOutputStream(ruta));
+            } catch (IOException ex) {
+                Logger.getLogger(CompradoresAutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                Helper.volcado(salida, autoModificado);
+                aux=0;
+                Helper.mensaje(this, "Persona Actualizada Correctamente!", 1);
+            }
         txtNombre.setText("");
         txtApellido.setText("");
         txtCedula.setText("");
@@ -136,6 +180,30 @@ public class CompradoresAutos extends javax.swing.JDialog {
            Helper.mensaje(this, "Ingrese correctamente las casillas", 3);
         }
     }//GEN-LAST:event_cmbGuardarActionPerformed
+
+    private void cmdBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBuscarActionPerformed
+        String cedula;
+        cedula = txtCedula.getText();
+        Autos a;
+        
+        if (Helper.buscarAutoCedula(cedula, ruta)) {
+            a = Helper.traerPersonaCedula(cedula, ruta);
+            txtNombre.setText(a.getNombre());
+            txtApellido.setText(a.getApellido());
+            aux = 1;
+        } else {
+            txtNombre.requestFocusInWindow();
+            aux = 0;
+        }
+    }//GEN-LAST:event_cmdBuscarActionPerformed
+
+    private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+
+        txtCedula.requestFocusInWindow();
+    }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,12 +249,16 @@ public class CompradoresAutos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmbGuardar;
+    private javax.swing.JButton cmdBuscar;
+    private javax.swing.JButton cmdLimpiar;
+    private javax.swing.JButton cmdSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtNombre;
