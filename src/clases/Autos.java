@@ -171,6 +171,13 @@ public class Autos implements java.io.Serializable{
         this.setHoraspagar(aux);
     }
     
+    public String Alquilar ()
+    {
+       String marca;
+       marca = this.Marca = "Chevrolet";
+       return marca;
+    }
+    
        public void guardar(ObjectOutputStream salida) throws IOException{
         salida.writeObject(this);
     }

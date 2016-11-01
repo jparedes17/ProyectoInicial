@@ -10,11 +10,13 @@ import clases.Helper;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -31,9 +33,11 @@ public class DatosAlquilados extends javax.swing.JDialog {
         ArrayList<Autos> auto;
         static JTable t;
         int aux = 0;
+        DateFormat df = DateFormat.getDateInstance();
     public DatosAlquilados(java.awt.Frame parent, boolean modal, JTable tabla) {
         super(parent, modal);
         initComponents();
+        
         t=tabla;
         ruta = "src/datos/autosAlquilados.txt";
         try {
@@ -75,7 +79,6 @@ public class DatosAlquilados extends javax.swing.JDialog {
         cmdSalir = new javax.swing.JButton();
         cmdBuscar = new javax.swing.JButton();
         cmdCancelar = new javax.swing.JButton();
-        txtFecha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,22 +154,23 @@ public class DatosAlquilados extends javax.swing.JDialog {
         jPanel3.add(cmdCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 80, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 140, 160));
-        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 90, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 360));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGuardarActionPerformed
-        String nombre, apellido, cedula, automovil, fecha;
+        String nombre, apellido, cedula, automovil;
         int horasalquilar, precioalquilar;
+        
+        
         
         nombre = txtNombre.getText();
         apellido = txtApellido.getText();
         cedula = txtCedula.getText();
         automovil = txtAutomovil.getText();
-        fecha = cmdFecha.getDateFormatString();
+        String fecha = df.format(cmdFecha.getDate());
         horasalquilar = Integer.parseInt(txtHorasAlquilar.getText());
         precioalquilar = Integer.parseInt(txtPrecioAlquilar.getText());
         ArrayList<Autos> autoModificado;
@@ -174,6 +178,7 @@ public class DatosAlquilados extends javax.swing.JDialog {
         if (aux == 0){
                  Autos a = new Autos (nombre, apellido, cedula, automovil, fecha, horasalquilar, precioalquilar);
                  a.Operacion();
+                 
             try {
                 a.guardar(salida);
             } catch (IOException ex) {
@@ -198,7 +203,7 @@ public class DatosAlquilados extends javax.swing.JDialog {
          txtApellido.setText("");
          txtCedula.setText("");
          txtAutomovil.setText("");
-         txtFecha.setText("");
+         cmdFecha.setDateFormatString("");
          txtHorasAlquilar.setText("");
          txtPrecioAlquilar.setText("");
     }//GEN-LAST:event_cmbGuardarActionPerformed
@@ -212,10 +217,11 @@ public class DatosAlquilados extends javax.swing.JDialog {
             a = Helper.traerPersonaCedula(cedula, ruta);
             txtNombre.setText(a.getNombre());
             txtApellido.setText(a.getApellido());
-            txtFecha.setText(a.getFecha());
+            cmdFecha.setDateFormatString(a.getFecha());
             txtHorasAlquilar.setText("" + a.getHorasalquiladas());
             txtPrecioAlquilar.setText("" + a.getPrecioalquilada());
             txtAutomovil.setText(a.getMarca());
+            
             aux = 1;
         } else {
             txtNombre.requestFocusInWindow();
@@ -228,7 +234,7 @@ public class DatosAlquilados extends javax.swing.JDialog {
         txtNombre.setText("");
         txtApellido.setText("");
         txtAutomovil.setText("");
-        txtFecha.setText("");
+        cmdFecha.setDateFormatString("");
         txtHorasAlquilar.setText("");
         txtPrecioAlquilar.setText("");
         txtHorasAlquilar.setText("");
@@ -302,7 +308,6 @@ public class DatosAlquilados extends javax.swing.JDialog {
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtAutomovil;
     private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtHorasAlquilar;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecioAlquilar;

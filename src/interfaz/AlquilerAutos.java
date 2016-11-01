@@ -5,7 +5,9 @@
  */
 package interfaz;
 
+import clases.Autos;
 import clases.Helper;
+import interfaz.DatosAlquilados.*;
 
 /**
  *
@@ -19,6 +21,7 @@ public class AlquilerAutos extends javax.swing.JDialog {
      * @param modal
      */
     String ruta;
+    Autos c;
     public AlquilerAutos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -141,8 +144,10 @@ public class AlquilerAutos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbAlquilar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar1ActionPerformed
-         DatosAlquilados a = new DatosAlquilados(null,true,tblTablaAlquilar);
+         DatosAlquilados a = new DatosAlquilados(null,true, tblTablaAlquilar);
             a.setVisible(true);
+            
+           c.Alquilar();
     }//GEN-LAST:event_cmbAlquilar1ActionPerformed
 
     private void cmbAlquilar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlquilar2ActionPerformed
